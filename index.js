@@ -23,7 +23,16 @@ app.post("/create/todo", (req,res) =>{
 
 
 
-app.get("/todos", (req, res)=>{res.json("get")});
+app.get("/todos", (req, res)=>{
+    todoModel
+    .find({})
+    .then((result)=> {
+        res.send(result);
+    })
+    .catch((err)=>{
+        res.send(err);
+    });
+});
 
 app.put("/update/todo", (req, res)=>{res.json("put")});
 
