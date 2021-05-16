@@ -8,9 +8,26 @@ const todoModel = require("./schema");
 
 app.use(express.json());
 
+
+
+app.post("/create/todo", (req,res) =>{
+    const {task, description, deadline, isCompleted, priority} = req.body;
+
+    const todo = new todoModel({task, description, deadline, isCompleted, priority});
+
+    todo.save()
+        .then( result => { res.json(result)})
+        .catch(err=>{ res.send(err)})
+
+});
+
+
+
 app.get("/todos", (req, res)=>{res.json("get")});
-app.post("/create/todo", (req,res) =>{res.json("post")});
+
 app.put("/update/todo", (req, res)=>{res.json("put")});
+
+
 app.delete("/delete/todo", (req, res)=>{res.json("delete")});
 
 
