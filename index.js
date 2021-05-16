@@ -21,8 +21,7 @@ app.post("/create/todo", (req,res) =>{
 
 });
 
-
-
+//get all of the todos
 app.get("/todos", (req, res)=>{
     todoModel
     .find({})
@@ -34,7 +33,29 @@ app.get("/todos", (req, res)=>{
     });
 });
 
-app.put("/update/todo", (req, res)=>{res.json("put")});
+//get all of the completed todos
+app.get("/todos/done", (req,res)=>{
+    todoModel
+    .find({isCompleted:true})
+    .then((result)=>{
+        res.json(result);
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+});
+
+
+app.put("/update/todo/:task", (req, res)=>{
+    todoModel
+    .findOneAndUpdate({task:req.params.task},req.body,{new : true})// req.body  or {isCompleted: req.body.isCompleted, description: req.body.description} if i want to update only these data
+    .then((result)=>{
+        res.json(result);
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+});
 
 
 app.delete("/delete/todo", (req, res)=>{res.json("delete")});
