@@ -7,6 +7,15 @@ const option = {
     useFindAndModify: true,
 };
 
+// todoSchema (task, description, deadline, isCompleted, priority)
+const todoSchema = new mongoose.Schema({
+    task:{ type: String, required: true},
+    description:{ type: String },
+    deadline:{ type: Date},
+    isCompleted:{ type: Boolean, required: true}, 
+    priority:{ type: Number}
+});
+
 
 mongoose.connect("mongodb://localhost:27017/DB_mm", option)
     .then(() => {
@@ -16,3 +25,5 @@ mongoose.connect("mongodb://localhost:27017/DB_mm", option)
             console.log(err);
         }
     );
+
+module.exports = mongoose.model("Todo", todoSchema);    
