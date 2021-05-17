@@ -58,7 +58,18 @@ app.put("/update/todo/:task", (req, res)=>{
 });
 
 
-app.delete("/delete/todo", (req, res)=>{res.json("delete")});
+app.delete("/delete/todo/:name", (req, res)=>{
+    todoModel
+    .findOneAndDelete({task:req.params.name},()=>{
+        console.log("delete is done.")
+    })
+    .then((result)=>{
+        res.json(result);
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+});
 
 
 
